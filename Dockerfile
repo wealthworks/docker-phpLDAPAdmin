@@ -1,10 +1,12 @@
 FROM debian:8
 
+MAINTAINER Eagle Liut "eagle@dantin.me"
+
 RUN echo "deb http://mirrors.aliyun.com/debian/ jessie main non-free contrib" > /etc/apt/sources.list; \
 	echo "deb http://mirrors.aliyun.com/debian/ jessie-proposed-updates main non-free contrib" >> /etc/apt/sources.list;
 
 RUN apt-get update ; \
-    apt-get -y --no-install-recommends install nginx-light php5-fpm php5-ldap phpldapadmin vim-tiny; \
+    apt-get -y --no-install-recommends install nginx-light php5-fpm php5-ldap phpldapadmin; \
     apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 
