@@ -13,7 +13,7 @@ RUN apt-get update ; \
 ADD host.default /etc/nginx/sites-available/default
 ADD nginx.conf /etc/nginx/nginx.conf
 
-ADD config.php /usr/share/phpldapadmin/config/config.php
+ADD config.php /etc/phpldapadmin/config.php
 
 ADD container-start.sh /scripts/start.sh
 RUN chmod a+x /scripts/start.sh

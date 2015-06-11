@@ -2,7 +2,8 @@
 
 FIRST_START_DONE="/etc/docker-first-start-done"
 
-CONFIG="/usr/share/phpldapadmin/config/config.php"
+# /usr/share/phpldapadmin/config/config.php -> /etc/phpldapadmin/config.php
+CONFIG="/etc/phpldapadmin/config.php"
 
 # container first start
 if [ ! -e "$FIRST_START_DONE" ]; then
@@ -13,6 +14,13 @@ if [ ! -e "$FIRST_START_DONE" ]; then
 # $servers->setValue('server','port',389);
 # $servers->setValue('server','base',array('dc=example,dc=net'));
 # $servers->setValue('login','auth_type','cookie');
+
+	if [ ! -e $CONFIG ]; then
+		echo "<?PHP" > $CONFIG
+		echo "" >> $CONFIG
+		echo "\$servers = new Datastore();" >> $CONFIG
+		echo "" >> $CONFIG
+	fi
 
     echo "\$servers->newServer('ldap_pla');" >> $CONFIG
     echo "\$servers->setValue('login','auth_type','${LDAP_AUTH_TYPE:-cookie}');" >> $CONFIG
