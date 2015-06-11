@@ -18,8 +18,6 @@ ADD config.php /etc/phpldapadmin/config.php
 ADD container-start.sh /scripts/start.sh
 RUN chmod a+x /scripts/start.sh
 
-RUN chown www-data:www-data /var/lib/php5/sessions
-
 VOLUME ["/var/log"]
 
 EXPOSE 80

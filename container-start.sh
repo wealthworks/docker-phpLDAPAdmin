@@ -30,6 +30,8 @@ if [ ! -e "$FIRST_START_DONE" ]; then
     [ ! -z $LDAP_BASE_DN] && echo "\$servers->setValue('server','base',array('${LDAP_BASE_DN}'));" >> $CONFIG
     echo "" >> $CONFIG
 
+    [ -d /var/lib/php5/sessions ] && chown www-data:www-data /var/lib/php5/sessions
+
     touch $FIRST_START_DONE
 fi
 
