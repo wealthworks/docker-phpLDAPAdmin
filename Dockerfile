@@ -14,6 +14,7 @@ ADD host.default /etc/nginx/sites-available/default
 ADD nginx.conf /etc/nginx/nginx.conf
 
 ADD config.php /etc/phpldapadmin/config.php
+ADD customAccount.xml /etc/phpldapadmin/templates/creation/customAccount.xml
 
 ADD container-start.sh /scripts/start.sh
 RUN chmod a+x /scripts/start.sh
