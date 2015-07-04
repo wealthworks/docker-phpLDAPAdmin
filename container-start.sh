@@ -7,10 +7,6 @@ FIRST_START_DONE="/etc/docker-first-start-done"
 # container first start
 if [ ! -e "$FIRST_START_DONE" ]; then
 
-    sed -i "s|listen = .*|listen = /var/run/php5-fpm.sock|g" /etc/php/php-fpm.conf
-    sed -i "s|;listen.owner = .*|listen.owner = nobody|g" /etc/php/php-fpm.conf
-    sed -i "s|;listen.group = .*|listen.group = nobody|g" /etc/php/php-fpm.conf
-
     mkdir -p /var/log/php
     chown nobody /var/log/php
     sed -i "s|;error_log = php_errors.log|error_log = /var/log/php/errors.log|g" /etc/php/php.ini
@@ -52,9 +48,6 @@ if [ ! -e "$FIRST_START_DONE" ]; then
     if [ -n "$MAIL_DOMAIN" ]; then
         sed -i "s|@example.org|@$MAIL_DOMAIN|g" /usr/share/webapps/phpldapadmin/templates/creation/customAccount.xml
     fi
-
-    mkdir -p /etc/nginx/sites-enabled
-    ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
 
     [ -d /var/lib/php5/sessions ] && chown nobody:nobody /var/lib/php5/sessions
 
