@@ -1,12 +1,21 @@
-#!/bin/bash -e
+#!/bin/sh -e
 
 FIRST_START_DONE="/etc/docker-first-start-done"
 
 # /usr/share/phpldapadmin/config/config.php -> /etc/phpldapadmin/config.php
-CONFIG="/etc/phpldapadmin/config.php"
 
 # container first start
 if [ ! -e "$FIRST_START_DONE" ]; then
+
+    sed -i "s|listen = .*|listen = /var/run/php5-fpm.sock|g" /etc/php/php-fpm.conf
+    sed -i "s|;listen.owner = .*|listen.owner = nobody|g" /etc/php/php-fpm.conf
+    sed -i "s|;listen.group = .*|listen.group = nobody|g" /etc/php/php-fpm.conf
+
+    mkdir -p /var/log/php
+    chown nobody /var/log/php
+    sed -i "s|;error_log = php_errors.log|error_log = /var/log/php/errors.log|g" /etc/php/php.ini
+
+    CONFIG="/etc/phpldapadmin/config.php"
 
 # $servers->newServer('ldap_pla');
 # $servers->setValue('server','name','My LDAP Server');
@@ -40,15 +49,18 @@ if [ ! -e "$FIRST_START_DONE" ]; then
     [ ! -z $LDAP_BASE_DN] && echo "\$servers->setValue('server','base',array('${LDAP_BASE_DN}'));" >> $CONFIG
     echo "" >> $CONFIG
 
-    if [ -n $MAIL_DOMAIN ]; then
-        sed -i "s|@example.org|@$MAIL_DOMAIN|g" /etc/phpldapadmin/templates/creation/customAccount.xml
+    if [ -n "$MAIL_DOMAIN" ]; then
+        sed -i "s|@example.org|@$MAIL_DOMAIN|g" /usr/share/webapps/phpldapadmin/templates/creation/customAccount.xml
     fi
 
-    [ -d /var/lib/php5/sessions ] && chown www-data:www-data /var/lib/php5/sessions
+    mkdir -p /etc/nginx/sites-enabled
+    ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
+
+    [ -d /var/lib/php5/sessions ] && chown nobody:nobody /var/lib/php5/sessions
 
     touch $FIRST_START_DONE
 fi
 
-/etc/init.d/php5-fpm start && nginx
+php-fpm && nginx
 
-exit 0
+
