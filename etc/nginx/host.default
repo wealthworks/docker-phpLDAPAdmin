@@ -11,6 +11,8 @@ server {
         try_files $uri $uri/ /index.php;
     }
 
+    client_max_body_size 2m;
+
     location ~ \.php$ {
         fastcgi_split_path_info ^(.+\.php)(/.+)$;
         # NOTE: You should have "cgi.fix_pathinfo = 0;" in php.ini
