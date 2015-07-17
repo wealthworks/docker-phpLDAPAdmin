@@ -12,8 +12,8 @@ if [ ! -e "$FIRST_START_DONE" ]; then
     sed -i "s|;error_log = php_errors.log|error_log = /var/log/php/errors.log|g" /etc/php/php.ini
 
     mkdir -p /var/lib/nginx/tmp
-    chown -R nobody:nobody /var/lib/nginx/tmp
-    chmod 775 /var/lib/nginx/tmp
+    chown -R nobody:nobody /var/lib/nginx
+    chmod 775  /var/lib/nginx /var/lib/nginx/tmp
 
     CONFIG="/etc/phpldapadmin/config.php"
 
