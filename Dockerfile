@@ -1,4 +1,4 @@
-FROM lcgc/php-fpm:5.6.10
+FROM lcgc/php-fpm:5.6.11
 MAINTAINER Eagle Liut <eagle@dantin.me>
 
 RUN apk --update add \
