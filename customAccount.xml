@@ -29,13 +29,15 @@
 </attribute>
 <attribute id="sn">
 	<display>姓</display>
-	<onchange>=autoFill(displayName;%sn%%cn%)</onchange>
+	<onchange>=autoFill(cn;%sn%%gn%)</onchange>
+	<onchange>=autoFill(displayName;%sn%%gn%)</onchange>
 	<order>3</order>
 	<page>1</page>
 </attribute>
-<attribute id="cn">
+<attribute id="gn">
 	<display>名</display>
-	<onchange>=autoFill(displayName;%sn%%cn%)</onchange>
+	<onchange>=autoFill(cn;%sn%%gn%)</onchange>
+	<onchange>=autoFill(displayName;%sn%%gn%)</onchange>
 	<order>4</order>
 	<page>1</page>
 </attribute>
@@ -55,9 +57,14 @@
 	<order>7</order>
 	<page>1</page>
 </attribute>
+<attribute id="cn">
+	<display>Common Name</display>
+	<order>8</order>
+	<page>1</page>
+</attribute>
 <attribute id="employeeNumber">
 	<display>Employee Number</display>
-	<order>8</order>
+	<order>9</order>
 	<page>1</page>
 </attribute>
 <attribute id="userPassword">
