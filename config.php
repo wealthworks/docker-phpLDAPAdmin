@@ -27,6 +27,7 @@
  *********************************************/
 /* Hide the warnings for invalid objectClasses/attributes in templates. */
 $config->custom->appearance['hide_template_warning'] = true;
+$config->custom->appearance['remoteurls'] = false;
 
 
 /*********************************************
